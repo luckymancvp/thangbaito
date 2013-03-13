@@ -4,7 +4,7 @@
 $yii=dirname(__FILE__).'/../yii-1.1.13/framework/yii.php';
 
 $config_file = "main.php";
-if ($_SERVER["SERVER_NAME"] == "nippou.jp"){
+if ($_SERVER["SERVER_NAME"] != "localhost"){
     $config_file = "deploy.php";
     $yii=dirname(__FILE__).'/yii-1.1.13/framework/yii.php';
 }

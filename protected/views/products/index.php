@@ -18,12 +18,11 @@ $this->breadcrumbs=array(
         'dataProvider'=>$model->search(),
         'template'=>"{items}",
         'columns'=>array_merge(
-            $model->attributeNames()
-            /*Additional function
-             * array(array(
+            $model->attributeNames(),
+              array(array(
                 'class'=>'bootstrap.widgets.TbButtonColumn',
                 'htmlOptions'=>array('style'=>'width: 50px'),
-            ))*/
+            ))
         ),
     )); ?>
 
