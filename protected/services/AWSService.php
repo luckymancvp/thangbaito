@@ -81,7 +81,8 @@ class AWSService
     {
         $ItemAttributes = gop($rawData, "ItemAttributes");
         $model->StandardPrice  = gop($ItemAttributes, "ListPrice", "FormattedPrice");
-        $model->LowestNewPrice = gop($ItemAttributes, "OfferSummary", "FormattedPrice");
+        $model->LowestNewPrice = gop($rawData, "OfferSummary", "LowestNewPrice");
+        $model->LowestNewPrice = $model->LowestNewPrice->FormattedPrice;
         $model->fee            = ""; // TODO fee
     }
 
