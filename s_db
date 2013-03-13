@@ -1,0 +1,1 @@
+/Applications/MAMP/Library/bin/mysql -u root -proot -h localhost < /Applications/MAMP/htdocs/amazon/protected/data/schema.mysql.sql
