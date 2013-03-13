@@ -13,7 +13,7 @@ class Product extends ProductBase
 
     public static function getAllAsins()
     {
-        $models = Product::model()->findAll();
+        $models = Product::model()->findAll(array("group"=>"asin"));
 
         /** @var $model Product */
         $asins = array();
@@ -39,17 +39,26 @@ class Product extends ProductBase
 
     public static function deleteByAsin($asin)
     {
-        $model = Product::model()->findByAttributes(array(
+        $models = Product::model()->findAllByAttributes(array(
             'asin'=>$asin,
         ));
 
-        return ($model && $model->delete());
+        foreach ($models as $model)
+            $model->delete();
     }
 
     public static function addNewByAsin($asin)
     {
+        // us
         $model = new Product();
         $model->asin = $asin;
+        $model->country = 'us';
+        $model->save();
+
+        //jp
+        $model = new Product();
+        $model->asin = $asin;
+        $model->country = 'jp';
         $model->save();
     }
 
@@ -58,10 +67,9 @@ class Product extends ProductBase
 
         /** @var $model Product */
         foreach ($models as $model){
-            $model->attributes = AWSService::fetchInfo($model->asin);
+            $model->attributes = AWSService::fetchInfo($model->asin ,$model->country);
 
-            if (!$model->save())
-                dump($model->errors);
+            $model->save();
         }
 
     }

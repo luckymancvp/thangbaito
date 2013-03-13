@@ -6,9 +6,12 @@ class ProductsController extends Controller
     public function actionIndex()
     {
         $model = Product::model();
+        $country = Yii::app()->request->getParam("country","us");
 
+        $model->country = $country;
         $this->render('index', array(
             'model' => $model,
+            'country'=>$country,
         ));
     }
 
@@ -27,10 +30,11 @@ class ProductsController extends Controller
         $asins = Yii::app()->request->getParam("asins");
 
         $asinInDB = Product::getAllAsins();
-        if ($asins){
+        if (isset($_POST["asins"])){
             $asins = $this->asinToArray($asins);
             Product::deleteProducts(array_diff($asinInDB, $asins));
             Product::addNewProducts(array_diff($asins, $asinInDB));
+            $this->redirect(array("/products/"));
         }
         else
             $asins = $asinInDB;

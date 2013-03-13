@@ -23,6 +23,7 @@
  * @property string $ImageL
  * @property string $fee
  * @property string $updated_time
+ * @property string $country
  */
 abstract class ProductBase extends CActiveRecord
 {
@@ -52,12 +53,12 @@ abstract class ProductBase extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('asin', 'length', 'max'=>45),
+			array('asin, country', 'length', 'max'=>45),
 			array('StandardPrice, LowestNewPrice, ItemWidth, ItemHeight, ItemLength, ItemWeight, PackageWidth, PackageHeight, PackageLength, PackageWeight, ModelNumber, SalesRank, ImageS, ImageM, ImageL, fee', 'length', 'max'=>255),
 			array('updated_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, asin, StandardPrice, LowestNewPrice, ItemWidth, ItemHeight, ItemLength, ItemWeight, PackageWidth, PackageHeight, PackageLength, PackageWeight, ModelNumber, SalesRank, ImageS, ImageM, ImageL, fee, updated_time', 'safe', 'on'=>'search'),
+			array('id, asin, StandardPrice, LowestNewPrice, ItemWidth, ItemHeight, ItemLength, ItemWeight, PackageWidth, PackageHeight, PackageLength, PackageWeight, ModelNumber, SalesRank, ImageS, ImageM, ImageL, fee, updated_time, country', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,6 +98,7 @@ abstract class ProductBase extends CActiveRecord
 			'ImageL' => 'Image L',
 			'fee' => 'Fee',
 			'updated_time' => 'Updated Time',
+			'country' => 'Country',
 		);
 	}
 
@@ -130,6 +132,7 @@ abstract class ProductBase extends CActiveRecord
 		$criteria->compare('ImageL',$this->ImageL,true);
 		$criteria->compare('fee',$this->fee,true);
 		$criteria->compare('updated_time',$this->updated_time,true);
+		$criteria->compare('country',$this->country,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

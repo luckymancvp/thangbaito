@@ -5,10 +5,10 @@ return CMap::mergeArray(
 	array(
 		'components'=>array(
             'db'=>array(
-                'connectionString' => 'mysql:host=mysql17.000webhost.com;dbname=a9060554_amazon',
+                'connectionString' => 'mysql:host=mysql.1freehosting.com;dbname=u520138716_ama',
                 'emulatePrepare' => true,
-                'username' => 'a9060554_amazon',
-                'password' => 'a9060554',
+                'username' => 'u520138716_ama',
+                'password' => 'thangbaito2013',
                 'charset' => 'utf8',
             ),
 		),

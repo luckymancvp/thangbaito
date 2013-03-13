@@ -21,15 +21,21 @@ class AWSService
 
     }
 
-    public static function getRawData($asin, $debug = false)
+    public static function getRawData($asin, $country, $debug = false)
     {
         self::setAPIKey();
 
         include_once (Yii::getPathOfAlias('ext').'/AmazonECS.class.php');
 
+        if ($country == "us")
+            $domain = "com";
+        else
+            if($country == "jp")
+                $domain = "co.jp";
+
         try
         {
-            $amazonEcs = new AmazonECS(AWS_API_KEY, AWS_API_SECRET_KEY, 'com', AWS_ASSOCIATE_TAG);
+            $amazonEcs = new AmazonECS(AWS_API_KEY, AWS_API_SECRET_KEY, $domain, AWS_ASSOCIATE_TAG);
 
             $amazonEcs->associateTag(AWS_ASSOCIATE_TAG);
 
@@ -50,13 +56,14 @@ class AWSService
         }
     }
 
-    public static function fetchInfo($asin, $debug = false)
+    public static function fetchInfo($asin, $country= "us", $debug = false)
     {
-        $rawData  = self::getRawData($asin, $debug);
+        $rawData  = self::getRawData($asin, $country, $debug);
         $itemAttr = gop($rawData,"ItemAttributes");
 
-        $model = new Product();
-        $model->asin = $asin;
+        $model          = new Product();
+        $model->asin    = $asin;
+        $model->country = $country;
         $model->updated_time = new CDbExpression("NOW()");
 
         // Get price

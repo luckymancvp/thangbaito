@@ -11,6 +11,14 @@ $this->breadcrumbs=array(
 
 <h1>List All Products</h1>
 
+<form method="GET">
+    <div id="langdrop">
+        <?php echo CHtml::dropDownList('country', $country, array(
+            'us' => 'us', 'jp' => 'jp'), array('submit' => ''));
+        ?>
+    </div>
+</form>
+
 <div class="form">
 
     <?php $this->widget('bootstrap.widgets.TbGridView', array(
@@ -18,11 +26,11 @@ $this->breadcrumbs=array(
         'dataProvider'=>$model->search(),
         'template'=>"{items}",
         'columns'=>array_merge(
-            $model->attributeNames(),
+            $model->attributeNames()/*,
               array(array(
                 'class'=>'bootstrap.widgets.TbButtonColumn',
                 'htmlOptions'=>array('style'=>'width: 50px'),
-            ))
+            ))*/
         ),
     )); ?>
 
